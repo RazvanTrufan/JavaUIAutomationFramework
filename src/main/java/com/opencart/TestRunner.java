@@ -1,9 +1,26 @@
 package com.opencart;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import com.opencart.managers.DriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WindowType;
+
 public class TestRunner {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        DriverManager manager = DriverManager.getInstance();
+        WebDriver driver = manager.getDriver();
+
+        String currentWindowName = driver.getWindowHandle();
+
+        driver.switchTo().newWindow(WindowType.TAB);
+
+        driver.get("https://www.apache.org/");
+        driver.close();
+
+        driver.switchTo().window(currentWindowName);
+        manager.getDriver().get("https://mvnrepository.com/");
+        driver.quit();
+
+        System.out.println("The driver is closed !");
+
     }
 }
